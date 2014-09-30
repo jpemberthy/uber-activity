@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang='en'>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Uber's oauth sample">
+    <meta name="author" content="Uber">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.min.css">
+    <title>Uber's OAuth Sample</title>
+    <style>P
+      #log{
+        max-height: 200px;
+        overflow-y: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/">Uber's OAuth</a>
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+
+        <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <% if authorized? %>
+              <li><a href="/">Dashboard</a></li>
+              <li><a href="/logout">Logout</a></li>
+            <% else %>
+              <li>
+                <a href="<%= login_link_with(:uber) %>">Sign in</a>
+              </li>
+            <% end %>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+    <div class='container' style='padding-top: 80px;'>
+      <% if flash.has?(:notice) %>
+        <div class='alert alert-success'>
+          <%= flash[:notice] %>
+          <a class="close" data-dismiss="alert" href="#" aria-hidden="true">&times;</a>
+        </div>
+      <% end %>
+
+      <% if flash.has?(:error) %>
+        <div class='alert alert-danger'>
+          <%= flash[:error] %>
+          <a class="close" data-dismiss="alert" href="#" aria-hidden="true">&times;</a>
+        </div>
+      <% end %>
+
+      <div class='content'>
+        <%= yield %>
+      </div>
+    </div>
+
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+
+    <script type='text/javascript'>
+      jQuery(function($) {
+        $('.alert').alert();
+
+        var $result = $("#result");
+        if ($result.length > 0) {
+          json_result = $.parseJSON($result.html());
+          $result.html( JSON.stringify(json_result, undefined, 4) );
+        };
+      });
+    </script>
+  </body>
+</html>

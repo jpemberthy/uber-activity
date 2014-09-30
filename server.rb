@@ -4,15 +4,36 @@ require 'bundler'
 Bundler.require
 Dotenv.load
 
-class UberActivity < Sinatra::Base
+require 'helpers'
 
+class UberActivity < Sinatra::Base
   use Rack::Session::Cookie
+  use Rack::Flash
   use OmniAuth::Builder do
-    provider :uber, ENV['UBER_CLIENT_ID'], ENV['UBER_CLIENT_SECRET'], :scope => 'profile,history'
+    provider :uber, ENV['UBER_CLIENT_ID'], ENV['UBER_CLIENT_SECRET']
   end
+
+  helpers Uber::Helpers
 
   get '/' do
-    "HELLO"
+    redirect to('/login') unless authorized?
+    erb :index
   end
 
+  get '/login' do
+    erb :login
+  end
+
+  get '/auth/:provider/callback' do
+    omniauth = request.env['omniauth.auth']
+    login!(omniauth)
+    flash[:notice] = "Welcome back!"
+    redirect to("/")
+  end
+
+  get "/logout" do
+    logout!
+    flash[:notice] = "You've been logged out."
+    redirect to("/")
+  end
 end
