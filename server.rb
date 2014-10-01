@@ -4,6 +4,9 @@ require 'bundler'
 Bundler.require
 Dotenv.load
 
+require 'sinatra/base'
+require 'sinatra/reloader'
+
 require 'helpers'
 
 class UberActivity < Sinatra::Base
@@ -11,6 +14,10 @@ class UberActivity < Sinatra::Base
   use Rack::Flash
   use OmniAuth::Builder do
     provider :uber, ENV['UBER_CLIENT_ID'], ENV['UBER_CLIENT_SECRET']
+  end
+
+  configure :development do
+    register Sinatra::Reloader
   end
 
   helpers Uber::Helpers
