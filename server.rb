@@ -27,11 +27,18 @@ class UberActivity < Sinatra::Base
   get '/' do
     redirect to('/login') unless authorized?
     history = Uber::Client.new(token: session[:token]).history(limit: params[:limit] || 10)
-    # TODO: Move this to a class or module.
+
     @history = history.group_by { |t| Time.at(t["start_time"]).strftime("%Y-%m") }
-    total_w_time = history.inject(0) { |sum, t| sum + (t["request_time"] - t["start_time"]).abs }
-    @avg_w_time = (total_w_time / history.size) / 60
-    @avg_miles = (history.inject(0) { |sum, t| sum + t["distance"] } / history.size).round(2)
+
+    # TODO: Move this logic to a support module/class.
+    if @history.size > 1
+      total_w_time = history.inject(0) { |sum, t| sum + (t["request_time"] - t["start_time"]).abs }
+      @avg_w_time = (total_w_time / history.size) / 60
+      @avg_miles = (history.inject(0) { |sum, t| sum + t["distance"] } / history.size).round(2)
+    else
+      @avg_w_time = @avg_miles = 0
+    end
+
     erb :index
   end
 
