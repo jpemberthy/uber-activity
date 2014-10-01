@@ -8,10 +8,12 @@ require 'sinatra/base'
 require 'sinatra/reloader'
 
 require 'helpers'
+require 'client'
 
 class UberActivity < Sinatra::Base
   use Rack::Session::Cookie
   use Rack::Flash
+
   use OmniAuth::Builder do
     provider :uber, ENV['UBER_CLIENT_ID'], ENV['UBER_CLIENT_SECRET']
   end
@@ -24,6 +26,8 @@ class UberActivity < Sinatra::Base
 
   get '/' do
     redirect to('/login') unless authorized?
+    history = Uber::Client.new(token: session[:token]).history(limit: params[:limit] || 30)
+    @history = history.group_by { |t| Time.at(t["start_time"]).strftime("%Y-%m") }
     erb :index
   end
 

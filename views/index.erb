@@ -1,1 +1,33 @@
-<h1> ZOMG HELLO </h1>
+<div class="container">
+  <div class="page-header">
+    <h1 id="timeline">Recent Trips</h1>
+  </div>
+
+  <ul class="timeline">
+    <% for month in @history %>
+      <li><div class="tldate"><%= Time.new(month.first).strftime("%B - %Y") %></div></li>
+      <% month.last.each_with_index do |trip, i| %>
+        <li class="<%= timeline_class_for(i) %>">
+          <div class="timeline-badge"><i class="glyphicon glyphicon-road"></i></div>
+          <div class="timeline-panel">
+            <div class="timeline-heading">
+              <h4 class="timeline-title"><%= trip["distance"].to_f.round(2) %> Miles</h4>
+              <p>
+                <small class="text-muted">
+                  <i class="glyphicon glyphicon-time"></i> <%= trip_time(trip) %>
+                </small>
+              </p>
+            </div>
+            <div class="timeline-body">
+              <p>
+                <%= trip["start_location"]["address"] %>
+                <span class="glyphicon glyphicon-arrow-right"></span>
+                <%= trip["end_location"]["address"] %>
+              </p>
+            </div>
+          </div>
+        </li>
+      <% end %>
+    <% end %>
+  </ul>
+</div>
