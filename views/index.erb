@@ -19,6 +19,7 @@
               <h4 class="timeline-title"><%= trip["distance"].to_f.round(2) %> Miles</h4>
               <p>
                 <small class="text-muted">
+                  <=
                   <i class="glyphicon glyphicon-time"></i> <span class="trip-time" data-start-time="<%= iso_time(trip['start_time']) %>" data-end-time="<%= iso_time(trip['end_time']) %>"></span>
                 </small>
               </p>
