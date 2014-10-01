@@ -1,11 +1,16 @@
 <div class="container">
-  <div class="page-header">
-    <h1 id="timeline">Recent Trips</h1>
+  <div>
+    <p>
+      <strong><%= session[:name] %></strong>, on average you wait <strong><%= @avg_w_time %> minutes</strong> before for your Uber picks you up.
+      Your average mileage is <strong><%= @avg_miles %> miles</strong>.
+    </p>
+
+    <p>Here are your recent trips information.</p>
   </div>
 
   <ul class="timeline">
     <% for month in @history %>
-      <li><div class="tldate"><%= Time.new(month.first).strftime("%B - %Y") %></div></li>
+      <li><div class="tldate"><%= Time.new(*month.first.split("-")).strftime("%B - %Y") %></div></li>
       <% month.last.each_with_index do |trip, i| %>
         <li class="<%= timeline_class_for(i) %>">
           <div class="timeline-badge"><i class="glyphicon glyphicon-road"></i></div>
