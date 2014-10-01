@@ -1,3 +1,5 @@
+require 'time'
+
 module Uber
   module Helpers
     def protected!(message = "Login first")
@@ -32,10 +34,8 @@ module Uber
       "/auth/#{provider}"
     end
 
-    def trip_time(trip)
-      prefix = Time.at(trip["start_time"]).strftime("%a %e. %l:%M %p")
-      suffix = Time.at(trip["end_time"]).strftime("%l:%M %p")
-      "#{prefix} to #{suffix}"
+    def iso_time(time)
+      Time.at(time).iso8601
     end
 
     def timeline_class_for(index)
