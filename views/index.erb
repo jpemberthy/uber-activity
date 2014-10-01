@@ -25,9 +25,11 @@
             </div>
             <div class="timeline-body">
               <p>
-                <%= trip["start_location"]["address"] %>
+                Start location unavailable
+                <%#= trip["start_location"]["address"] %>
                 <span class="glyphicon glyphicon-arrow-right"></span>
-                <%= trip["end_location"]["address"] %>
+                End location unavailable
+                <%#= trip["end_location"]["address"] %>
               </p>
             </div>
           </div>
@@ -35,9 +37,4 @@
       <% end %>
     <% end %>
   </ul>
-</div>
-
-<div style="display: none">
-  <!-- Temp hack for debugging purposes -->
-  <%= session[:token] %>
 </div>
