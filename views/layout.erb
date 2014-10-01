@@ -79,9 +79,10 @@
         };
 
         $('.trip-time').each(function() {
-          var start = moment(this.data('start-time'));
-          var end = moment(this.data('end-time'));
-          this.text(start.format('DD ddd hh:mm A') + ' to ' + end.format('hh:mm A'));
+          var $el = $(this);
+          var start = moment($el.data('start-time'));
+          var end = moment($el.data('end-time'));
+          $el.text(start.format('DD ddd hh:mm A') + ' to ' + end.format('hh:mm A'));
         });
       });
     </script>
