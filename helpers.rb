@@ -31,5 +31,15 @@ module Uber
     def login_link_with(provider)
       "/auth/#{provider}"
     end
+
+    def trip_time(trip)
+      prefix = Time.at(trip["start_time"]).strftime("%a %e. %l:%M %p")
+      suffix = Time.at(trip["end_time"]).strftime("%l:%M %p")
+      "#{prefix} to #{suffix}"
+    end
+
+    def timeline_class_for(index)
+      index.even? ? "" : "timeline-inverted"
+    end
   end
 end
