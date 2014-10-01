@@ -1,8 +1,8 @@
 <div class="container">
   <div>
     <p>
-      <strong><%= session[:name] %></strong>, on average you wait <strong><%= @avg_w_time %> minutes</strong> before for your Uber picks you up.
-      Your average mileage is <strong><%= @avg_miles %> miles</strong>.
+      <strong><%= session[:name] %></strong>, on average you wait <strong><%= stats[:avg_w_time] %> minutes</strong> before for your Uber picks you up.
+      Your average mileage is <strong><%= stats[:avg_miles] %> miles</strong>.
     </p>
 
     <p>Here is your recent trips information.</p>

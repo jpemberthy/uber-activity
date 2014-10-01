@@ -41,5 +41,9 @@ module Uber
     def timeline_class_for(index)
       index.even? ? "" : "timeline-inverted"
     end
+
+    def stats
+      @stats.stats
+    end
   end
 end
