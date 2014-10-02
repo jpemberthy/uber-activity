@@ -17,4 +17,4 @@ UBER_CLIENT_SECRET=some-oauth-secret-key
 You can get the `client` and `secret` keys after creating an application from the Uber developer page. When creating the App, make sure you check the `history` scope.
 
 When you have your `.env` file ready, you just need to run `rackup` on the root
-of the project and go to http://localhost:9292/
+of the project and go to [http://localhost:9292/](http://localhost:9292/)
