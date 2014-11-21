@@ -16,7 +16,7 @@ class UberActivity < Sinatra::Base
   use Rack::Flash
 
   use OmniAuth::Builder do
-    provider :uber, ENV['UBER_CLIENT_ID'], ENV['UBER_CLIENT_SECRET'], :scope => 'history profile'
+    provider :uber, ENV['UBER_CLIENT_ID'], ENV['UBER_CLIENT_SECRET']
   end
 
   configure :development do
