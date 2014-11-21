@@ -25,9 +25,9 @@
             </div>
             <div class="timeline-body">
               <p>
-                <%= trip["start_location"]["address"] %>
+                <%= trip.fetch("start_location", {})["address"] || "Not available" %>
                 <span class="glyphicon glyphicon-arrow-right"></span>
-                <%= trip["end_location"]["address"] %>
+                <%= trip.fetch("end_location", {})["address"] || "Not available" %>
               </p>
             </div>
           </div>
