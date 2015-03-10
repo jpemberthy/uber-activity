@@ -7,7 +7,7 @@ module Uber
 
     attr_reader :version, :token
 
-    def initialize(token:, version: "v1.1")
+    def initialize(token:, version: "v1")
       @token, @version = token, version
       self.class.headers authorization_header
     end
