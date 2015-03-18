@@ -11,3 +11,7 @@ gem "rack-flash3", require: 'rack-flash'
 gem "httparty"
 
 gem "omniauth-uber"
+
+group :test do
+  gem "rspec", "=3.2"
+end

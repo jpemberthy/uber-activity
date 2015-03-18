@@ -3,13 +3,25 @@ require 'httparty'
 module Uber
   class Client
     include HTTParty
-    base_uri 'api.uber.com'
+    NONSANDBOX_URI = 'https://api.uber.com'
+    SANDBOX_URI = 'https://sandbox-api.uber.com'
 
-    attr_reader :version, :token
+    attr_reader :version, :token, :sandbox
 
-    def initialize(token:, version: "v1.1")
-      @token, @version = token, version
+    def initialize(token:, version: "v1.1", sandbox: false)
+      @token, @version, @sandbox = token, version, sandbox
+
+      if sandbox?
+        self.class.base_uri SANDBOX_URI
+      else
+        self.class.base_uri NONSANDBOX_URI
+      end
+
       self.class.headers authorization_header
+    end
+
+    def sandbox?
+      !!@sandbox
     end
 
     def history(opts = {})
