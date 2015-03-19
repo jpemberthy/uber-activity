@@ -7,9 +7,9 @@ Dotenv.load
 require 'sinatra/base'
 require 'sinatra/reloader'
 
-require 'helpers'
-require 'client'
-require 'stats'
+require_relative 'helpers'
+require_relative 'client'
+require_relative 'stats'
 
 class UberActivity < Sinatra::Base
   use Rack::Session::Cookie

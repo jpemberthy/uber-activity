@@ -4,10 +4,6 @@ describe Uber::Client do
   let(:client) { Uber::Client.new(token: "123") }
   let(:sandbox_client) { Uber::Client.new(token: "123", sandbox: true) }
 
-  it "has a default version" do
-    expect(client.version).to eq("v1.1")
-  end
-
   it "points to production by default" do
     expect(client.sandbox).to be(false)
     expect(client.class.base_uri).to eq(Uber::Client::NONSANDBOX_URI)

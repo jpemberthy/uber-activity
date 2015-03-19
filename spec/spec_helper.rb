@@ -1,5 +1,7 @@
 require "rspec"
-require File.join(File.dirname(__FILE__), "../client")
+require "factory"
+require File.join(File.dirname(__FILE__), "../server")
 
-RSpec.configure do |conf|
+def factory
+  Factory.new
 end
