@@ -1,10 +1,15 @@
 require 'httparty'
+require 'json'
+require_relative 'client/rides'
 
 module Uber
   class Client
     include HTTParty
+
     NONSANDBOX_URI = 'https://api.uber.com'
     SANDBOX_URI = 'https://sandbox-api.uber.com'
+
+    include Rides
 
     attr_reader :version, :token, :sandbox
 
@@ -22,6 +27,11 @@ module Uber
 
     def sandbox?
       !!@sandbox
+    end
+
+    def post(path, body: {})
+      headers = { "Content-Type" => "application/json" }
+      self.class.post("/#{version}/#{path}", body: body.to_json, headers: headers)
     end
 
     def history(opts = {})

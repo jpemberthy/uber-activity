@@ -13,4 +13,17 @@ describe Uber::Client do
     expect(sandbox_client.sandbox).to be(true)
     expect(sandbox_client.class.base_uri).to eq(Uber::Client::SANDBOX_URI)
   end
+
+
+  describe "Request Rides" do
+    let(:client) { factory.build_sandbox_client(version: "v1") }
+
+    it "Requests a ride" do
+      body = factory.build_ride_request_body
+      ride = client.request_ride(body)
+      # TODO: VCR and wrap as Uber::Ride object
+      expect(ride['status']).to eq('processing')
+    end
+  end
+
 end
