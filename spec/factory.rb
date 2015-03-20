@@ -12,6 +12,18 @@ class Factory
     }.merge(opts)
   end
 
+  def build_create_ride_parsed_response(opts = {})
+    {
+      "status"=>"processing",
+      "request_id"=>"862b7d9d-94aa-40b1-8689-31035a1b70d9",
+      "driver"=>nil,
+      "eta"=>9,
+      "location"=>nil,
+      "vehicle"=>nil,
+      "surge_multiplier"=>1.0
+    }.merge(opts)
+  end
+
   def build_sandbox_client(attributes = {})
     atts = {token: ENV['TEST_ACCESS_TOKEN'], sandbox: true}.merge(attributes)
     Uber::Client.new(atts)

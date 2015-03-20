@@ -23,6 +23,7 @@ module Uber
       end
 
       self.class.headers authorization_header
+      self.class.headers format_header
     end
 
     def sandbox?
@@ -30,8 +31,15 @@ module Uber
     end
 
     def post(path, body: {})
-      headers = { "Content-Type" => "application/json" }
-      self.class.post("/#{version}/#{path}", body: body.to_json, headers: headers)
+      self.class.post("/#{version}/#{path}", body: body.to_json)
+    end
+
+    def put(path, body: {})
+      self.class.put("/#{version}/#{path}", body: body.to_json)
+    end
+
+    def get(path, options: {})
+      self.class.get("/#{version}/#{path}", options)
     end
 
     def history(opts = {})
@@ -43,6 +51,10 @@ module Uber
 
     def authorization_header
       { "Authorization" => "Bearer #{self.token}" }
+    end
+
+    def format_header
+      { "Content-Type" => "application/json" }
     end
   end
 end
